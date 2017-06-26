@@ -6,6 +6,7 @@ Created on Mon May 08 12:35:38 2017
 """
 
 import urllib
+
 import gzip
 import StringIO
 import re
@@ -27,7 +28,7 @@ def getDianji(index):
         
     return number
 
-def getName(index):
+def getTitle(index):
     url="%s%d"%("http://www.bilibili.com/video/av",index)
     f=urllib.urlopen(url)
     html=f.read()
@@ -40,7 +41,9 @@ def getName(index):
         soup = BeautifulSoup(content)
         # 相较通过正则表达式去匹配,BeautifulSoup提供了一个更简单灵活的方式
         #avTitle = soup.findAll("title")    
-        avTitle=soup.html.title.string.encode('utf-8')
+        #avTitle=soup.html.title.string.encode('utf-8')
+        avTitle=soup.html.title.get_text().encode('utf-8')
+        #avTitle=soup.html.title.NavigatableString.encode('utf-8')  #这个不行 有待研究
     except:
         avTitle=""
     
@@ -48,7 +51,7 @@ def getName(index):
     
     
 def doWork(index,output):            
-    title=getName(index)    
+    title=getTitle(index)    
     playNum=getDianji(index)
     line=str(index)+"\t"+str(playNum)+"\t"+title   
     output.writelines(line+"\n")
@@ -59,7 +62,7 @@ def doWork(index,output):
 
 def main():
     fileobj=open("TEMP.txt",'a+')
-    for ID in range(305191,400000,2):
+    for ID in range(331311,400000,2):
         #doWork(ID,fileobj)
         
         t1=threading.Thread(target=doWork(ID,fileobj))
