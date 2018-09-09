@@ -2,7 +2,7 @@
 """
 Created on 2018/9/8
 
-@author: tyw
+@author: tyw66
 """
 
 import urllib
@@ -19,15 +19,15 @@ from traits.api import Int,Str,Float
 from traitsui.api import View,Item,OKCancelButtons
 
 ##全局变量
-
+##模拟构造请求头，会话
+session = requests.Session()
+headers = {
+	"User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36",
+}
+	
 	
 ##获取网页标题
 def getTitle(url):
-	##模拟构造请求头，会话
-	session = requests.Session()
-	headers = {
-		"User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36",
-	}
 	req=session.get(url,headers=headers)
 	html=req.text
 	
@@ -42,19 +42,13 @@ def title2folder(title):
 	title = re.sub('[\r\n\|\.\<\>\*]','',title)
 
 	folder = "%s%s"%("./",title)
-	
 	#print folder
 	return folder
 	
 ##下载url链接中的所有图片到folder目录下
 def downloadImages(url,folder,page_count):
-	print "downloadImages",url
+	print "downloadImages:",url
 	
-	##模拟构造请求头，会话
-	session = requests.Session()
-	headers = {
-		"User-Agent":"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36",
-	}
 	req=session.get(url,headers=headers)
 	html=req.text
 	
@@ -71,7 +65,8 @@ def downloadImages(url,folder,page_count):
 	count=0
 	for node in img_node_list:
 		img_url = node["src"]
-		#img_url="%s%s"%("https:",img_url)	#（针对部分情况）添加"http:"头
+		if(img_url[0:4]!="http"):
+			img_url="%s%s"%("https:",img_url)	#（针对部分情况）添加"http:"头
 		print img_url
 		
 		count+=1
@@ -89,10 +84,7 @@ def downloadImages(url,folder,page_count):
 	
 	
 def main(mainUrl,subUrl,subFix,N):
-	##网站名称
-	#mainUrl="https://guguxx.biz/artkt/DTgongfangDAIGOchongjinsuonianfu40P/"
-	#页数
-	#N=4
+
 
 	title=getTitle(mainUrl)
 	folder = title2folder(title)
@@ -111,10 +103,10 @@ def main(mainUrl,subUrl,subFix,N):
 			
 #UI界面
 class UiClass(HasTraits):
-	pageNum=Int(4)
-	mainUrl=Str("https://guguxx.biz/artkt/DTgongfangDAIGOchongjinsuonianfu40P/")
-	subUrl=Str("/index")
-	subFix=Str(".html")
+	pageNum=Int(0)
+	mainUrl=Str("https://one-piece.cn/post/10916/")
+	subUrl=Str("")
+	subFix=Str("")
 	
 	View=View(
 		Item('pageNum',label=u"页数，无分页模式输入0"),
@@ -139,3 +131,11 @@ if __name__ == '__main__':
 	print u"下载完毕，用时：",endtime-startime
 
 
+
+'''
+神秘网站
+	"https://guguxx.biz/artkt/DTgongfangDAIGOchongjinsuonianfu40P/"
+	
+
+'''
+	
