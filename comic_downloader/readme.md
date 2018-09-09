@@ -2,17 +2,17 @@
 ## 漫画网站URL规则:
 - URL形如："{漫画主地址名}/{附加名}{序号}{后缀}"
 
-	福利eg. https://guguxx.biz/artkt/DTgongfangDAIGOchongjinsuonianfu40P/index_1.html
-	
 	序号从1开始递增，和页数相同
+
+	福利eg. https://guguxx.biz/artkt/DTgongfangDAIGOchongjinsuonianfu40P/index1.html
 	
-- 输入
+- 输入，以eg为例
 
 	网址：https://guguxx.biz/artkt/DTgongfangDAIGOchongjinsuonianfu40P/
 	
 	总页数：4
 	
-	附加：index_
+	附加：index
 	
 	后缀：.html
 	
@@ -30,24 +30,18 @@
 ### 海贼王漫画
 用户输入
 
-	- 网址：https://one-piece.cn/post/10916/
-	
-	- 总页数：0
-	
-	- 附加：（留空）
-	
-	- 后缀：（留空）
+- 网址：https://one-piece.cn/post/10916/
+- 总页数：0
+- 附加：（留空）
+- 后缀：（留空）
 	
 ### 福利漫画
 用户输入
 
-	- 网址：https://guguxx.biz/artkt/DTgongfangDAIGOchongjinsuonianfu40P/
-	
-	- 总页数：4
-	
-	- 附加：/index
-	
-	- 后缀：.html
+- 网址：https://guguxx.biz/artkt/DTgongfangDAIGOchongjinsuonianfu40P/
+- 总页数：4
+- 附加：/index
+- 后缀：.html
 	
 	
 ## 问题记录
